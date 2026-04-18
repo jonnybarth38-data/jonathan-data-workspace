@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Decision Point Inputs (Excel Names)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; background:#f6f7fb; margin:0; padding:24px; color:#1f2937; }
+    .card { max-width: 760px; margin:0 auto; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:20px; box-shadow:0 6px 14px rgba(0,0,0,.06); }
+    h1 { font-size:20px; margin:0 0 12px; }
+    .grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:14px 16px; }
+    label { font-size:13px; color:#374151; margin-bottom:6px; display:block; }
+    input[type="number"] { width:100%; padding:10px 12px; font-size:14px; border:1px solid #d1d5db; border-radius:8px; background:#fff; outline:none; }
+    input[type="number"]:focus { border-color:#0b6bcb; box-shadow:0 0 0 3px rgba(11,107,203,.15); }
+    .row { margin-top:16px; display:flex; gap:10px; }
+    button { border:0; padding:10px 14px; border-radius:10px; background:#0b6bcb; color:#fff; font-weight:600; cursor:pointer; }
+    button.secondary { background:#e5e7eb; color:#111827; }
+    pre { margin-top:14px; background:#0b1220; color:#d1e7ff; padding:12px; border-radius:10px; overflow:auto; font-family: ui-monospace, Menlo, Consolas, monospace; font-size:13px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Decision Point Inputs</h1>
+    <form id="dpForm" onsubmit="event.preventDefault(); previewJSON();">
+      <div class="grid">
+        <div>
+          <label for="current_price">current_price</label>
+          <input id="current_price" name="current_price" type="number" step="0.01" placeholder="108800" />
+        </div>
+
+        <div>
+          <label for="High_week">High_week</label>
+          <input id="High_week" name="High_week" type="number" step="0.01" placeholder="117400" />
+        </div>
+        <div>
+          <label for="Low_week">Low_week</label>
+          <input id="Low_week" name="Low_week" type="number" step="0.01" placeholder="111800" />
+        </div>
+
+        <div>
+          <label for="High_month">High_month</label>
+          <input id="High_month" name="High_month" type="number" step="0.01" placeholder="123300" />
+        </div>
+        <div>
+          <label for="Low_month">Low_month</label>
+          <input id="Low_month" name="Low_month" type="number" step="0.01" placeholder="108100" />
+        </div>
+
+        <div>
+          <label for="High_6_month">High_6_month</label>
+          <input id="High_6_month" name="High_6_month" type="number" step="0.01" placeholder="125000" />
+        </div>
+        <div>
+          <label for="Low_6_month">Low_6_month</label>
+          <input id="Low_6_month" name="Low_6_month" type="number" step="0.01" placeholder="77900" />
+        </div>
+
+        <div>
+          <label for="High_year">High_year</label>
+          <input id="High_year" name="High_year" type="number" step="0.01" placeholder="125000" />
+        </div>
+        <div>
+          <label for="Low_year">Low_year</label>
+          <input id="Low_year" name="Low_year" type="number" step="0.01" placeholder="54224" />
+        </div>
+      </div>
+
+      <div class="row">
+        <button type="submit">Preview JSON</button>
+        <button type="button" class="secondary" onclick="resetForm()">Reset</button>
+      </div>
+    </form>
+
+    <pre id="preview">/* JSON payload will appear here */</pre>
+  </div>
+
+  <script>
+    function val(id){ const v=document.getElementById(id).value; return v===""?null:parseFloat(v); }
+    function payload(){
+      return {
+        current_price: val("current_price"),
+        High_week:     val("High_week"),
+        Low_week:      val("Low_week"),
+        High_month:    val("High_month"),
+        Low_month:     val("Low_month"),
+        High_6_month:  val("High_6_month"),
+        Low_6_month:   val("Low_6_month"),
+        High_year:     val("High_year"),
+        Low_year:      val("Low_year")
+      };
+    }
+    function previewJSON(){ document.getElementById("preview").textContent = JSON.stringify(payload(), null, 2); }
+    function resetForm(){ document.getElementById("dpForm").reset(); document.getElementById("preview").textContent="/* JSON payload will appear here */"; }
+  </script>
+</body>
+</html>
