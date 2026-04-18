@@ -1,0 +1,9 @@
+# Ignore data files
+*.csv
+*.pdf
+
+# Jupyter
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
